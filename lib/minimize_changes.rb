@@ -38,6 +38,9 @@ end
 
 class ProblemReader
 
+  #
+  # Liest das Problem XML ein und erstellt das Problem Objekt
+  #
   def read broblem_name
     f = File.open("files/problems/#{broblem_name}")
     doc = Nokogiri::XML(f)
@@ -46,12 +49,10 @@ class ProblemReader
     bedarf = read_bedarf(doc)
     anzahl_maschinen = read_anzahl_maschinen(doc)
 
-    #puts "bedarf"
-    #p bedarf
-    #puts "anzahl maschinen: #{anzahl_maschinen}"
-
-    p = Problem.new(anzahl_maschinen, bedarf)
+    Problem.new(anzahl_maschinen, bedarf)
   end
+
+  private
 
   def read_anzahl_maschinen(doc)
     anzahl = 0
@@ -60,8 +61,6 @@ class ProblemReader
     end
     anzahl
   end
-
-  private
 
   def read_bedarf(doc)
 
