@@ -41,7 +41,7 @@ out_info "Nun Lösen mit Solver: "
 
 mzn_file = "created_for_solver.mzn"
 smt_file = "created_for_solver.smt"
-employee_number = 4
+employee_number = 2
 
 system("cd files/created && rm loesung.txt")
 
