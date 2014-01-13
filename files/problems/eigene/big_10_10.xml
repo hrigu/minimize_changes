@@ -1,0 +1,26 @@
+<optimization_instance>
+<control>
+<objective>1</objective>
+<product_order>fixed</product_order>
+<algorithm>ktns</algorithm>
+</control>
+<machines>
+<number>10</number>
+</machines>
+<!-- this instance does not contain multiset products -->
+<production>
+<product>19,599,135,62,2</product>
+<product>19,115,599,135,1,62,2,52,69</product>
+<product>19,599,135,62,2</product>
+<product>19,128,599,135,62,2</product>
+<product>19,599,135,62,2</product>
+<product>19,115,599,135,1,62,2,52,69</product>
+<product>19,599,135,62,2</product>
+<product>19,599,135,148,62,2</product>
+<product>19,599,135,62,2</product>
+<product>19,128,599,135,62,2</product>
+<product>19,599,135,62,2</product>
+<product>19,128,599,135,62,2</product>
+<product>19,599,135,62,2</product>
+</production>
+</optimization_instance>

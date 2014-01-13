@@ -1,6 +1,8 @@
 % fuer solver
 % GRUENORANGEROT	end_wechsel	<=	0	0	3000	5000
 % end fuer solver
+% end variable
+var 0..(anzahl_time_slots * anzahl_maschinen): end_wechsel;
 
 int: anzahl_time_slots = <%= @problem.anzahl_timeslots %>;
 set of int: TIME_SLOTS = 1..anzahl_time_slots;
@@ -22,9 +24,6 @@ array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte	: plan_2;
 
 % Wechsel
 array[MASCHINEN, TIME_SLOTS] of var 0..1: wechsel;    	% 0 := Kein Wechsel, 1 := Wechsel
-
-% end variable
-var 0..(anzahl_time_slots * anzahl_maschinen): end_wechsel;
 
 
 % fuer solver
