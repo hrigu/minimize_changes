@@ -7,12 +7,40 @@ class Problem
     @anzahl_timeslots = @bedarf[0].length
   end
 
+  def initial_loesung
+    l = ""
+    @anzahl_timeslots.times.each do |ti|
+      current_m = 1
+      @anzahl_produkte.times.each do |pi|
+        if bedarf[pi][ti] == 1
+          l << "m#{current_m}t#{ti+1}=#{pi+1};"
+          current_m += 1
+        end
+      end
+    end
+    #bedarf.each_with_index do |product, pi|
+    #  current_m = 1
+    #  product.each_with_index do |bedarf_in_timeslot, ti|
+    #    if bedarf_in_timeslot == 1
+    #      l << "m#{current_m}t#{ti+1}=#{pi+1};"
+    #      current_m += 1
+    #    end
+    #  end
+    #end
+    l
+  end
+
   def inspect
-"
-Anzahl Maschinen:  #{anzahl_maschinen}
+    x = "Bedarf: (X-Achse: Index Timeslots, Y-Achse: Index Produkt) \n"
+    bedarf.each do |r|
+      x << r.map { |p| p }.join(" ") << "\n"
+    end
+#{bedarf.inspect}
+    x << "Anzahl Maschinen:  #{anzahl_maschinen}
 Anzahl Produkte:   #{anzahl_produkte}
 Anzahl Timeslots:  #{anzahl_timeslots}
-"
+initiale Lösung:   #{initial_loesung}
+    "
   end
 end
 

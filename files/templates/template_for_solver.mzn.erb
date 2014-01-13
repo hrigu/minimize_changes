@@ -97,6 +97,7 @@ constraint end_wechsel == sum(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,t]);
 %solve minimize end_wechsel;
 
 % fuer solver
+% INITIALLOESUNG:   <%= @problem.initial_loesung %>
 solve satisfy;
 % end fuer solver
 
