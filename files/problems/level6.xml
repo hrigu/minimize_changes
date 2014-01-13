@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<optimization_instance>
+  <!-- control information about the optimization process -->
+  <control>
+    <objective>1</objective>
+    <!-- 1: changeovers -->
+    <!-- 2: stops (high priority) and changeovers (low priority) -->
+    <!-- 3: critical changeovers and stops (high priority) and changeovers (low priority) -->
+    <product_order>variable</product_order>
+    <!-- product_order can be "fixed" or "variable" -->
+    <algorithm>ktns</algorithm>
+    <!-- algorithm can be "knts" or "flow" -->
+  </control>
+
+  <!-- information about the machines -->
+  <machines>
+    <number>5</number>
+  </machines>
+
+  <!-- information about the production -->
+  <production>
+    <product>0,1,2</product>
+    <product>0,2,3,4</product>
+    <product>3,5,6</product>
+    <product>2,7,3</product>
+    <product>7,1,3,4</product>
+    <product>5,6,1,2,3</product>
+    <product>1,2,4</product>
+    <product>2,3,5,6</product>
+  </production>
+ 
+  <!-- this section is only relevant for the GUI and ignored by the command-line solver -->
+  <gui>
+    <!-- the description may contain HTML/CSS commands for font formatting, using escape characters when necessary -->
+    <description>Minimize changeovers (each changeover costs +1). &lt;span style=&quot;color:red&quot;&gt;You can modify the row order as well.&lt;/span&gt;</description>
+
+    <!-- sprite coordinates for the parts -->
+    <sprite part="0" x="0" y="0"/>
+    <sprite part="1" x="1" y="1"/>
+    <sprite part="2" x="2" y="2"/>
+    <sprite part="3" x="3" y="3"/>
+    <sprite part="4" x="4" y="4"/>
+    <sprite part="5" x="5" y="5"/>
+    <sprite part="6" x="8" y="5"/>
+    <sprite part="7" x="9" y="4"/>
+
+    <initial_schedule fill="random"/>
+
+    <!-- one optimal schedule -->
+    <optimal_schedule>
+      <matrix>
+        <row>2,*,0,1,*</row>
+        <row>2,4,0,*,3</row>
+        <row>*,4,7,1,3</row>
+        <row>2,*,7,*,3</row>
+        <row>2,4,*,1,*</row>
+        <row>*,5,6,*,3</row>
+        <row>2,5,6,1,3</row>
+        <row>2,5,6,*,3</row>
+      </matrix>
+      <product_order>1,2,5,4,7,3,6,8</product_order>
+    </optimal_schedule>
+  </gui>
+</optimization_instance>

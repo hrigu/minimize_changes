@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<optimization_instance>
+  <!-- control information about the optimization process -->
+  <control>
+    <objective>1</objective>
+    <!-- 1: changeovers -->
+    <!-- 2: stops (high priority) and changeovers (low priority) -->
+    <!-- 3: critical changeovers and stops (high priority) and changeovers (low priority) -->
+    <product_order>fixed</product_order>
+    <!-- product_order can be "fixed" or "variable" -->
+    <algorithm>flow</algorithm>
+    <!-- algorithm can be "knts" or "flow" -->
+  </control>
+
+  <!-- information about the machines -->
+  <machines>
+    <number>4</number>
+  </machines>
+
+  <!-- information about the production -->
+  <production>
+    <product>0,2,5</product>
+    <product>2,4</product>
+    <product>1,5</product>
+    <product>0</product>
+    <product>0,3,4</product>
+    <product>1,2,5</product>
+  </production>
+
+  <parts>
+    <!-- higher changeover costs between different part types -->
+    <changeover_cost from="0,1" to="2,3,4,5">2</changeover_cost>
+    <changeover_cost from="2,3" to="0,1,4,5">2</changeover_cost>
+    <changeover_cost from="4,5" to="0,1,2,3">2</changeover_cost>
+  </parts>
+  
+  <!-- this section is only relevant for the GUI and ignored by the command-line solver -->
+  <gui>
+    <!-- the description may contain HTML/CSS commands for font formatting, using escape characters when necessary -->
+    <description>Minimize changeovers, where &lt;span style=&quot;color:red&quot;&gt;changeovers between items of different color cost +2&lt;/span&gt;, all others +1.</description>
+
+    <!-- sprite coordinates for the parts -->
+    <sprite part="0" x="0" y="0"/>
+    <sprite part="1" x="3" y="0"/>
+    <sprite part="2" x="4" y="1"/>
+    <sprite part="3" x="5" y="1"/>
+    <sprite part="4" x="6" y="2"/>
+    <sprite part="5" x="7" y="2"/>
+
+    <initial_schedule fill="random"/>
+
+    <!-- one optimal schedule -->
+    <optimal_schedule>
+      <matrix>
+        <row>0,2,*,5</row>
+        <row>*,2,4,*</row>
+        <row>1,*,*,5</row>
+        <row>0,*,*,*</row>
+        <row>0,3,4,*</row>
+        <row>1,2,*,5</row>
+      </matrix>
+    </optimal_schedule>
+  </gui>
+</optimization_instance>

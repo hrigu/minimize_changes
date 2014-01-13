@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<optimization_instance>
+  <!-- control information about the optimization process -->
+  <control>
+    <objective>1</objective>
+    <!-- 1: changeovers -->
+    <!-- 2: stops (high priority) and changeovers (low priority) -->
+    <!-- 3: critical changeovers and stops (high priority) and changeovers (low priority) -->
+    <product_order>fixed</product_order>
+    <!-- product_order can be "fixed" or "variable" -->
+    <algorithm>ktns</algorithm>
+    <!-- algorithm can be "knts" or "flow" -->
+  </control>
+
+  <!-- information about the machines -->
+  <machines>
+    <number>3</number>
+  </machines>
+
+  <!-- information about the production -->
+  <production>
+    <product>0,3</product>
+    <product>1,3</product>
+    <product>2</product>
+    <product>3</product>
+    <product>0,1</product>
+    <product>0,2</product>
+  </production>
+
+  <!-- this section is only relevant for the GUI and ignored by the command-line solver -->
+  <gui>
+    <!-- the description may contain HTML/CSS commands for font formatting, using escape characters when necessary -->
+    <description>Minimize item changes (=changeovers) in the columns. The current and the optimal number of changeovers are shown below.</description>
+
+    <!-- sprite coordinates for the parts -->
+    <sprite part="0" x="0" y="0"/>
+    <sprite part="1" x="1" y="1"/>
+    <sprite part="2" x="2" y="2"/>
+    <sprite part="3" x="3" y="3"/>
+
+    <initial_schedule fill="random"/>
+
+    <!-- one optimal schedule -->
+    <optimal_schedule>
+      <matrix>
+        <row>0,*,3</row>
+        <row>*,1,3</row>
+        <row>*,2,*</row>
+        <row>*,*,3</row>
+        <row>0,*,1</row>
+        <row>0,2,*</row>
+      </matrix>
+    </optimal_schedule>
+  </gui>
+</optimization_instance>
