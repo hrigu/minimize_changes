@@ -94,7 +94,9 @@ wechsel[m,t] == bool2int(not(plan_2[m,t] == plan_2[m,t+1]))
 
 constraint end_wechsel == sum(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,t]);
 
+%hook_for_show_solution
 %solve minimize end_wechsel;
+
 % fuer solver
 solve satisfy;
 % end fuer solver
