@@ -1,8 +1,4 @@
-% fuer solver
-% GRUENORANGEROT	end_wechsel	<=	0	0	3000	5000
-% end fuer solver
-% end variable
-var 0..(anzahl_time_slots * anzahl_maschinen): end_wechsel;
+<%= render("#{@solve_strategy.template_dir}end_variablen_und_gruenorangerot.mzn.erb") %>
 
 int: anzahl_time_slots = <%= @problem.anzahl_timeslots %>;
 set of int: TIME_SLOTS = 1..anzahl_time_slots;

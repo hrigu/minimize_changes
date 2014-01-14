@@ -1,0 +1,35 @@
+
+output
+["\n"] ++
+
+["\nTimestep" ++ "\t"] ++
+[	if(t < 10) then " " else "" endif ++
+show(t) ++
+if(t < anzahl_time_slots) then " " else "\n" endif | t in TIME_SLOTS] ++
+
+["-------------------------"] ++ ["---"| t in TIME_SLOTS] ++
+
+["---"| t in TIME_SLOTS] ++
+["\n" ++ "Bedarf" ++ "\t\t "] ++
+[show(bedarf[p,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | p in PRODUKTE, t in TIME_SLOTS] ++
+
+["-------------------------"] ++ ["---"| t in TIME_SLOTS] ++
+["\n" ++ "Plan" ++ "\t\t "] ++
+[show(plan[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS] ++
+
+%["---"| t in TIME_SLOTS] ++
+%["\n" ++ "Plan_2" ++ "\t\t "] ++
+%[show(plan_2[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS] ++
+%
+
+["---"| t in TIME_SLOTS] ++
+["\n" ++ "Wechsel" ++ "\t\t "] ++
+[show(wechsel[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS] ++
+
+<% @problem.anzahl_maschinen.times do |i| %>
+["\n" ++ "Wechsel total Maschine m_<%=i+1 %> == " ++ show(end_wechsel_m_<%=i+1 %>) ++ "\n"] <%= if i < @problem.anzahl_maschinen - 1 then "++" end %>
+<% end %>
+
+
+
+

@@ -1,0 +1,4 @@
+<% @problem.anzahl_maschinen.times do |i| %>
+% GRUENORANGEROT	end_wechsel_m_<%= i+1%>	<=	0	0	500	<%= @problem.anzahl_timeslots / 4 %>	1000	<%= @problem.anzahl_timeslots / 2 %>	2000	<%= (@problem.anzahl_timeslots * 3 ) / 4 %>	3000	<%= @problem.anzahl_timeslots %>
+var 0..anzahl_time_slots: end_wechsel_m_<%=i+1 %>;
+<% end %>
