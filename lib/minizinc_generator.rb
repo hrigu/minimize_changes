@@ -11,7 +11,7 @@ class MinizincGenerator
   end
 
   def create_mzn_file
-    result = render "files/templates/main.mzn.erb"
+    result = render "files/templates/global_end/main.mzn.erb"
     File.open("files/created/created.mzn", 'w+') { |file| file.write(result) }
   end
 end

@@ -26,8 +26,8 @@ array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte	: plan_2;
 array[MASCHINEN, TIME_SLOTS] of var 0..1: wechsel;    	% 0 := Kein Wechsel, 1 := Wechsel
 
 
-<%= render("files/templates/mt_variablen.mzn.erb") %>
-<%= render("files/templates/constraints.mzn.erb") %>
+<%= render("files/templates/global_end/mt_variablen.mzn.erb") %>
+<%= render("files/templates/global_end/constraints.mzn.erb") %>
 
 
 %hook_for_show_solution
@@ -38,4 +38,4 @@ solve satisfy;
 % end fuer solver
 
 
-<%= render("files/templates/output.mzn.erb") %>
+<%= render("files/templates/global_end/output.mzn.erb") %>
