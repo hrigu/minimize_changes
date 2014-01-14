@@ -26,75 +26,11 @@ array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte	: plan_2;
 array[MASCHINEN, TIME_SLOTS] of var 0..1: wechsel;    	% 0 := Kein Wechsel, 1 := Wechsel
 
 
-% fuer solver
-% Wechsel als als mt-Variablen
-% X-Achse: Maschinen
-% Y-Achse: Timeslots
-<% @problem.anzahl_timeslots.times do |ti| %>
-<%= @problem.anzahl_maschinen.times.map{|mi| "var 0..anzahl_produkte: m#{mi+1}t#{ti+1};"}.join("\t")%>
-<% end %>
+<%= render("files/templates/mt_variablen.mzn.erb") %>
+<%= render("files/templates/constraints.mzn.erb") %>
 
-% --------------------------
-% Constraints Datenstrukur
-% --------------------------
-
-% Verknuepfung  mt-Variablen mit Plan
-% --------------------------------------------------------
-% X-Achse: Maschinen
-% Y-Achse: Timeslots
-<% @problem.anzahl_timeslots.times do |ti| %>
-<%= @problem.anzahl_maschinen.times.map{|mi| "constraint m#{mi+1}t#{ti+1} == plan[ #{mi+1},#{ti+1} ];"}.join("\t")%>
-<% end %>
-
-% end fuer solver
-
-
-
-% Alle Produkte verarbeiten
-% Pro Produkt und Timeslot muss die Anzahl des Produktes auf allen Maschinen zusammengezaehlt den Bedarf ergeben
-constraint forall(p in PRODUKTE, t in TIME_SLOTS) (
-sum(m in MASCHINEN) (bool2int(plan[m,t] == p)) == bedarf[p,t]
-);
-
-
-% In "plan" gibt es Timeslots, in dem die Maschine nichts zu tun hat.
-% Die füllen mit dem nächstfolgenden Produkt, damit das Erkennen von Produktwechsel einfacher wird.
-constraint forall(m in MASCHINEN, t in TIME_SLOTS where t > 1) (
-
-% etwas schneller
-((plan[m,t] == 0) /\ (plan_2[m,t] == plan_2[m,t-1]))
-\/
-(not(plan[m,t] == 0) /\ (plan_2[m,t] == plan[m,t]))
-
-%	% etwas langsamer:
-%	let  { var bool: a = (plan[m,t] == 0)}
-%	in
-%	(a /\ (plan_2[m,t] == plan_2[m,t-1]))
-%	\/
-%	(not(a) /\ (plan_2[m,t] == plan[m,t]))
-
-);
-
-% Fuer t = 1 (erster Timeslot)
-constraint forall(m in MASCHINEN) (
-((plan[m,1] == 0) /\ (plan_2[m,1] == plan_2[m,2]))
-\/
-(not(plan[m,1] == 0) /\ (plan_2[m,1] == plan[m,1]))
-
-);
-
-
-
-% Anzahl Wechsel pro Maschine
-constraint forall(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,anzahl_time_slots] == 0); % nie ein Wechsel im letzten Time Step
-constraint forall(m in MASCHINEN, t in TIME_SLOTS where t < anzahl_time_slots) (
-wechsel[m,t] == bool2int(not(plan_2[m,t] == plan_2[m,t+1]))
-);
-
-constraint end_wechsel == sum(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,t]);
 
 %hook_for_show_solution
-%solve minimize end_wechsel;
 
 % fuer solver
 % INITIALLOESUNG:   <%= @problem.initial_loesung %>
@@ -102,33 +38,4 @@ solve satisfy;
 % end fuer solver
 
 
-
-output
-["\n"] ++
-
-["\nTimestep" ++ "\t"] ++
-[	if(t < 10) then " " else "" endif ++
-show(t) ++
-if(t < anzahl_time_slots) then " " else "\n" endif | t in TIME_SLOTS] ++
-
-["-------------------------"] ++ ["---"| t in TIME_SLOTS] ++
-
-["---"| t in TIME_SLOTS] ++
-["\n" ++ "Bedarf" ++ "\t\t "] ++
-[show(bedarf[p,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | p in PRODUKTE, t in TIME_SLOTS] ++
-
-["-------------------------"] ++ ["---"| t in TIME_SLOTS] ++
-["\n" ++ "Plan" ++ "\t\t "] ++
-[show(plan[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS] ++
-
-%["---"| t in TIME_SLOTS] ++
-%["\n" ++ "Plan_2" ++ "\t\t "] ++
-%[show(plan_2[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS] ++
-%
-
-["---"| t in TIME_SLOTS] ++
-["\n" ++ "Wechsel" ++ "\t\t "] ++
-[show(wechsel[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS] ++
-
-["\n" ++ "Wechsel total == " ++ show(end_wechsel) ++ "\n"]
-
+<%= render("files/templates/output.mzn.erb") %>

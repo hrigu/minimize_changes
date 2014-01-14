@@ -4,6 +4,12 @@ class MinizincGenerator
     @problem, @solve_strategy = problem, solve_strategy
   end
 
+  def render path
+    content = File.read(File.expand_path(path))
+    t = ERB.new(content)
+    t.result(binding)
+  end
+
   def create_mzn_file
     template_file = File.open("files/templates/template.mzn.erb", 'r').read
     erb = ERB.new(template_file)
