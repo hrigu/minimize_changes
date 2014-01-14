@@ -31,22 +31,26 @@ class Problem
     x << "Anzahl Maschinen:  #{anzahl_maschinen}
 Anzahl Produkte:   #{anzahl_produkte}
 Anzahl Timeslots:  #{anzahl_timeslots}
-#initiale Lösung: \n"
-#    generate_initiale_loesung.each do |r|
-#      x << r.map { |p| p }.join(" ") << "\n"
-#    end
+initiale Lösung: \n"
+    generate_initiale_loesung.each do |r|
+      x << r.map { |p| p }.join(" ") << "\n"
+    end
     x
   end
 
   private
   def generate_initiale_loesung
+    # 2-D Array der Grösse anzahl_maschinen * anzahl_timeslots erstellen und mit 0 initialisieren
     a = Array.new(@anzahl_maschinen) { Array.new(@anzahl_timeslots, 0) }
 
-    @anzahl_timeslots.times.each do |ti|
-      current_m = 0
-      @anzahl_produkte.times.each do |pi|
+    @anzahl_timeslots.times do |ti|
+      current_m = 1
+      @anzahl_produkte.times do |pi|
         if bedarf[pi][ti] == 1
-          a[current_m][ti] = pi+1
+          if current_m > a.size
+            raise "Mehr Produkte in einem Timeslot als Maschinen (current_m = #{current_m}, a.size = #{a.size}"
+          end
+          a[current_m-1][ti] = pi+1 # Produktname (Zahl)
           current_m += 1
         end
       end
