@@ -1,3 +1,9 @@
+% fuer solver
+% GRUENORANGEROT	end_wechsel	<=	0	0	3000	5000
+% end fuer solver
+% end variable
+var 0..(anzahl_time_slots * anzahl_maschinen): end_wechsel;
+
 int: anzahl_time_slots = <%= @problem.anzahl_timeslots %>;
 set of int: TIME_SLOTS = 1..anzahl_time_slots;
 
@@ -19,8 +25,29 @@ array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte	: plan_2;
 % Wechsel
 array[MASCHINEN, TIME_SLOTS] of var 0..1: wechsel;    	% 0 := Kein Wechsel, 1 := Wechsel
 
-% end variable
-var 0..(anzahl_time_slots * anzahl_maschinen): end_wechsel;
+
+% fuer solver
+% Wechsel als als mt-Variablen
+% X-Achse: Maschinen
+% Y-Achse: Timeslots
+<% @problem.anzahl_timeslots.times do |ti| %>
+<%= @problem.anzahl_maschinen.times.map{|mi| "var 0..anzahl_produkte: m#{mi+1}t#{ti+1};"}.join("\t")%>
+<% end %>
+
+% --------------------------
+% Constraints Datenstrukur
+% --------------------------
+
+% Verknuepfung  mt-Variablen mit Plan
+% --------------------------------------------------------
+% X-Achse: Maschinen
+% Y-Achse: Timeslots
+<% @problem.anzahl_timeslots.times do |ti| %>
+<%= @problem.anzahl_maschinen.times.map{|mi| "constraint m#{mi+1}t#{ti+1} == plan[ #{mi+1},#{ti+1} ];"}.join("\t")%>
+<% end %>
+
+% end fuer solver
+
 
 
 % Alle Produkte verarbeiten
@@ -66,7 +93,15 @@ wechsel[m,t] == bool2int(not(plan_2[m,t] == plan_2[m,t+1]))
 
 constraint end_wechsel == sum(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,t]);
 
-solve minimize end_wechsel;
+%hook_for_show_solution
+%solve minimize end_wechsel;
+
+% fuer solver
+% INITIALLOESUNG:   <%= @problem.initial_loesung %>
+solve satisfy;
+% end fuer solver
+
+
 
 output
 ["\n"] ++

@@ -48,21 +48,16 @@ initiale Lösung:
 end
 
 
+
 class MinizincGenerator
-  def initialize problem
-    @problem = problem
+  def initialize problem, solve_strategy
+    @problem, @solve_strategy = problem, solve_strategy
   end
 
   def create_mzn_file
     template_file = File.open("files/templates/template.mzn.erb", 'r').read
     erb = ERB.new(template_file)
     File.open("files/created/created.mzn", 'w+') { |file| file.write(erb.result(binding)) }
-  end
-
-  def create_mzn_for_solver_file
-    template_file = File.open("files/templates/template_for_solver.mzn.erb", 'r').read
-    erb = ERB.new(template_file)
-    File.open("files/created/created_for_solver.mzn", 'w+') { |file| file.write(erb.result(binding)) }
   end
 end
 
