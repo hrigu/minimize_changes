@@ -24,17 +24,17 @@ class Problem
 
   def inspect
     x = "Bedarf: (X-Achse: Index Timeslots, Y-Achse: Index Produkt) \n"
-    bedarf.each do |r|
-      x << r.map { |p| p }.join(" ") << "\n"
-    end
+    #bedarf.each do |r|
+    #  x << r.map { |p| p }.join(" ") << "\n"
+    #end
 #{bedarf.inspect}
     x << "Anzahl Maschinen:  #{anzahl_maschinen}
 Anzahl Produkte:   #{anzahl_produkte}
 Anzahl Timeslots:  #{anzahl_timeslots}
-initiale Lösung: \n"
-    generate_initiale_loesung.each do |r|
-      x << r.map { |p| p }.join(" ") << "\n"
-    end
+#initiale Lösung: \n"
+#    generate_initiale_loesung.each do |r|
+#      x << r.map { |p| p }.join(" ") << "\n"
+#    end
     x
   end
 

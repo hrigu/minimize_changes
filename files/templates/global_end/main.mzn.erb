@@ -33,7 +33,7 @@ array[MASCHINEN, TIME_SLOTS] of var 0..1: wechsel;    	% 0 := Kein Wechsel, 1 :=
 %hook_for_show_solution
 
 % fuer solver
-% INITIALLOESUNG:   <%= @problem.initial_loesung %>
+% INITIALLOESUNG    <%= @problem.initial_loesung %>
 solve satisfy;
 % end fuer solver
 

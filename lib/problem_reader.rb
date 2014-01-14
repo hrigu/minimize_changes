@@ -27,16 +27,14 @@ class ProblemReader
   end
 
   def read_bedarf(doc)
-
     produkte = []
     doc.xpath('optimization_instance/production/*').each do |node|
       produkte << get_bedarf_for_product(node.content)
     end
-
     uniq_produkte = produkte.flatten.uniq.sort
     puts "Die verschiedenen Produkte: (Anzahl = #{uniq_produkte.size})"
-    p uniq_produkte
-    puts "Anzahl Timeslots: #{produkte.size}"
+    #p uniq_produkte
+    #puts "Anzahl Timeslots: #{produkte.size}"
 
     bedarf = []
     uniq_produkte.size.times { bedarf << [] }

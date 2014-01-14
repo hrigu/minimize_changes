@@ -5,7 +5,7 @@
     <algorithm>ktns</algorithm>
   </control>
   <machines>
-    <number>15</number>
+    <number>20</number>
   </machines>
   <!-- this instance does not contain multiset products -->
   <production>
@@ -38,7 +38,7 @@
     <product>19,599,135,62</product>
     <product>19,128,599,135,62</product>
     <product>19,599,135,62</product>
-    <!--
+
     <product>19,115,599,135,1,62,52,69</product>
     <product>19,599,135,62</product>
     <product>19,599,135,148,62</product>
@@ -141,6 +141,7 @@
   <product>41,115,103,128,100,599,96,39,52</product>
   <product>77,115,103,100,599,39,52</product>
   <product>77,115,103,128,100,599,39,52</product>
+    <!--
   <product>77,115,103,100,599,39,52</product>
   <product>77,115,103,128,100,599,39,52</product>
   <product>77,41,115,103,100,599,96,102,52</product>

@@ -15,26 +15,37 @@ class SolveStrategy
 end
 
 class SolverSolveStrategy < SolveStrategy
-  attr_reader :employee_number, :template_dir
+  attr_reader :employees, :template_dir
 
-  def initialize(employee_number: 2)
+  def initialize(employees: 2)
     super SOLVER
-    @employee_number = employee_number
-    #@template_dir = "files/templates/global_end/"
+    @employees = employees
+    @mzn_file = "created.mzn"
+    @smt_file = "created.smt"
     @template_dir = "files/templates/end_pro_maschine/"
+    #@template_dir = "files/templates/global_end/"
   end
 
   def solve
-    mzn_file = "created.mzn"
-    smt_file = "created.smt"
+
     #system("cp #{@template_dir}grenzen_modifiziert.txt files/created/grenzen_modifiziert.txt")
     #generiert flatzinc, smt, erste Lösung: alles um schlussendlich das File zu lösen
-    system("cd files/created && ~/dienstplan/trunk/solver/solver_master/processing.sh #{mzn_file}")
-    system("cd files/created && mpirun -n 5 ~/dienstplan/trunk/solver/solver_master/squeeze_ubuntu_12.04 --solver-name yices-smt --solver-path $(dirname $(which yices-smt)) --employee-number #{employee_number}..8 --global-timeout 100 --solver-timeout 2..10 --oi end_liegenlassen.txt --os beste_loesung.txt -i #{smt_file} -s loesung.txt -g grenzen.txt --statistic statistic.txt")
-    loesung_zeigen(mzn_file)
+    erstelle_files()
+    loese()
+    loesung_zeigen()
   end
 
-  def loesung_zeigen(mzn_file)
+  def loese()
+    mpirun = "mpirun -n 5 ~/dienstplan/trunk/solver/solver_master/squeeze_ubuntu_12.04 --solver-name yices-smt --solver-path $(dirname $(which yices-smt)) --employee-number #{employees} --global-timeout 100 --solver-timeout 2..10 --oi end_liegenlassen.txt --os beste_loesung.txt -i #{@smt_file} -s loesung.txt -g grenzen.txt --statistic statistic.txt"
+    puts mpirun
+    system("cd files/created && "+mpirun)
+  end
+
+  def erstelle_files()
+    system("cd files/created && ~/dienstplan/trunk/solver/solver_master/processing.sh #{@mzn_file}")
+  end
+
+  def loesung_zeigen()
     out_info "Beste Lösung"
 
     solution = nil
@@ -45,7 +56,7 @@ class SolverSolveStrategy < SolveStrategy
     end
     out_info "Loesung schreiben "
 
-    tempfile = File.open("files/created/#{mzn_file}.tmp", "w")
+    tempfile = File.open("files/created/#{@mzn_file}.tmp", "w")
     File.open("files/created/#{mzn_file}", "r") do |infile|
       while (line = infile.gets)
         tempfile << line
