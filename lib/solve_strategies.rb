@@ -1,3 +1,4 @@
+require 'fileutils'
 class SolveStrategy
   SOLVER = :solver
   MINIZINC = :minizinc

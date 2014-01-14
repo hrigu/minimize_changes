@@ -1,3 +1,4 @@
+require 'erb'
 class MinizincGenerator
   def initialize problem, solve_strategy
     @problem, @solve_strategy = problem, solve_strategy
