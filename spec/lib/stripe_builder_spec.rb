@@ -6,12 +6,12 @@ describe 'StripeBuilder' do
 
   before :each do
     @bedarf = [
-        [1, 1, 1],
-        [0, 1, 1],
-        [0, 0, 1],
-        [1, 0, 1],
-        [1, 1, 0],
-        [0, 1, 1],
+        [true, true, true],
+        [false, true, true],
+        [false, false, true],
+        [true, false, true],
+        [true, true, false],
+        [false, true, true],
     ]
     @sb = StripesBuilder.new
 

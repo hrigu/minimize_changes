@@ -54,7 +54,7 @@ Anzahl Timeslots:  #{anzahl_timeslots}"
     @anzahl_timeslots.times do |ti|
       current_m = 1
       @anzahl_produkte.times do |pi|
-        if bedarf[pi][ti] == 1
+        if bedarf[pi][ti]
           if current_m > a.size
             raise "Mehr Produkte in einem Timeslot als Maschinen (current_m = #{current_m}, a.size = #{a.size}"
           end

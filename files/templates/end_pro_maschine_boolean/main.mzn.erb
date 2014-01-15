@@ -1,0 +1,37 @@
+<%= render("#{@solve_strategy.template_dir}end_variablen_und_gruenorangerot.mzn.erb") %>
+
+int: anzahl_time_slots = <%= @problem.anzahl_timeslots %>;
+set of int: TIME_SLOTS = 1..anzahl_time_slots;
+
+int: anzahl_maschinen = <%= @problem.anzahl_maschinen %>;
+set of int: MASCHINEN = 1..anzahl_maschinen;
+
+int: anzahl_produkte = <%= @problem.anzahl_produkte %>;
+set of int: PRODUKTE = 1..anzahl_produkte;
+
+array[PRODUKTE, TIME_SLOTS] of bool: bedarf =
+[|<%= @problem.bedarf.map{|p| p.join(",")}.join("\n |") %>|];
+
+% plan
+array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte: plan;
+
+% Hilfsplan: Alle leere Felder aufgelöst
+array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte	: plan_2;
+
+% Wechsel
+array[MASCHINEN, TIME_SLOTS] of var bool: wechsel;
+
+
+<%= render("#{@solve_strategy.template_dir}mt_variablen.mzn.erb") %>
+<%= render("#{@solve_strategy.template_dir}constraints.mzn.erb") %>
+
+
+%hook_for_show_solution
+
+% fuer solver
+% INITIALLOESUNG	<%= @problem.initial_loesung %>
+solve satisfy;
+% end fuer solver
+
+
+<%= render("#{@solve_strategy.template_dir}output.mzn.erb") %>

@@ -32,7 +32,7 @@ class StripesBuilder
   end
 
   def save_stripe_if_good_enough
-    if current_stripe && current_stripe.value == 1 && current_stripe.size > 1
+    if current_stripe && current_stripe.value && current_stripe.size > 1
       stripes << current_stripe
     end
   end

@@ -25,7 +25,7 @@ class SolverSolveStrategy < SolveStrategy
     @problem = problem
     @mzn_file = "created.mzn"
     @smt_file = "created.smt"
-    @template_dir = "files/templates/end_pro_maschine/"
+    @template_dir = "files/templates/end_pro_maschine_boolean/"
     #@template_dir = "files/templates/global_end/"
   end
 
@@ -45,7 +45,7 @@ class SolverSolveStrategy < SolveStrategy
   end
 
   def loese()
-    mpirun = "mpirun -n 5 ~/dienstplan/trunk/solver/solver_master/squeeze_ubuntu_12.04 --solver-name yices-smt --solver-path $(dirname $(which yices-smt)) --employee-number #{employees} --global-timeout 100 --solver-timeout 2..10 --oi end_liegenlassen.txt --os beste_loesung.txt -i #{@smt_file} -s loesung.txt -g grenzen.txt --statistic statistic.txt"
+    mpirun = "mpirun -n 5 ~/dienstplan/trunk/solver/solver_master/squeeze_ubuntu_12.04 --solver-name yices-smt --solver-path $(dirname $(which yices-smt)) --employee-number #{employees} --global-timeout 20 --solver-timeout 2..10 --oi end_liegenlassen.txt --os beste_loesung.txt -i #{@smt_file} -s loesung.txt -g grenzen.txt --statistic statistic.txt"
     puts mpirun
     system("cd files/created && "+mpirun)
   end
