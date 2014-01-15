@@ -1,3 +1,5 @@
+require_relative "stripe"
+
 class Problem
   # Bedarf der Produkte pro Timeslot: [0][3] = Bedarf fuer Produkt 0 im Timeslot 3
   attr_reader :bedarf
@@ -8,6 +10,17 @@ class Problem
     @anzahl_maschinen, @bedarf = anzahl_maschinen, bedarf
     @anzahl_produkte = @bedarf.length
     @anzahl_timeslots = @bedarf[0].length
+  end
+
+  def detect_product_stripes
+    stripes_builder = StripesBuilder.new
+    bedarf.each_with_index do |p, pi|
+      p.each_with_index do |ts, ti|
+        stripes_builder.new_time_slot pi, ts, ti
+      end
+    end
+    stripes_builder.finish
+    p stripes_builder
   end
 
   def initial_loesung
@@ -23,18 +36,18 @@ class Problem
   end
 
   def inspect
-    x = ""#Bedarf: (X-Achse: Index Timeslots, Y-Achse: Index Produkt) \n"
+    x = "" #Bedarf: (X-Achse: Index Timeslots, Y-Achse: Index Produkt) \n"
     #bedarf.each do |r|
     #  x << r.map { |p| p }.join(" ") << "\n"
     #end
-#{bedarf.inspect}
+    #{bedarf.inspect}
     x << "Anzahl Maschinen:  #{anzahl_maschinen}
 Anzahl Produkte:   #{anzahl_produkte}
-Anzahl Timeslots:  #{anzahl_timeslots}
-initiale Lösung: \n"
-    generate_initiale_loesung.each do |r|
-      x << r.map { |p| p }.join(" ") << "\n"
-    end
+Anzahl Timeslots:  #{anzahl_timeslots}"
+    #"initiale Lösung: \n"
+    #    generate_initiale_loesung.each do |r|
+    #      x << r.map { |p| p }.join(" ") << "\n"
+    #    end
     x
   end
 
@@ -58,4 +71,4 @@ initiale Lösung: \n"
     a
   end
 
- end
+end

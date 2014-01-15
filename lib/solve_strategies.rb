@@ -19,10 +19,10 @@ end
 class SolverSolveStrategy < SolveStrategy
   attr_reader :employees, :template_dir
 
-  def initialize(employees: 2, problem_file: "problem_file")
+  def initialize(employees: 2, problem: nil)
     super SOLVER
     @employees = employees
-    @problem_file = problem_file
+    @problem = problem
     @mzn_file = "created.mzn"
     @smt_file = "created.smt"
     @template_dir = "files/templates/end_pro_maschine/"
@@ -30,11 +30,6 @@ class SolverSolveStrategy < SolveStrategy
   end
 
   def mzn_file_erstellen
-    out_info "Problem einlesen..."
-
-    problem = ProblemReader.new.read(@problem_file)
-    p problem
-
     out_info "mzn File erstellen..."
     generator = MinizincGenerator.new(problem, self)
     generator.create_mzn_file
