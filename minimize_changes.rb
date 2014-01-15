@@ -17,16 +17,6 @@ include Helpers
 #out_info "Problem einlesen..."
 #problem = ProblemReader.new.read(problem_file)
 
-bedarf = [
-    [1, 1, 1],
-    [0, 1, 1],
-    [0, 0, 1],
-    [1, 0, 1],
-    [1, 1, 0],
-    [0, 1, 1],
-
-
-]
 problem = Problem.new 2, bedarf
 
 problem.detect_product_stripes

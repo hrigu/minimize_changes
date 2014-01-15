@@ -6,6 +6,14 @@ class StripesBuilder
     @current_stripe = nil
   end
 
+  def detect_product_stripes bedarf
+    bedarf.each_with_index do |p, pi|
+      p.each_with_index do |ts, ti|
+        self.new_time_slot pi, ts, ti
+      end
+    end
+    self.finish
+  end
 
   def new_time_slot product, value, index
     if index == 0

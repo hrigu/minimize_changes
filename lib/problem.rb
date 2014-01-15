@@ -14,12 +14,7 @@ class Problem
 
   def detect_product_stripes
     stripes_builder = StripesBuilder.new
-    bedarf.each_with_index do |p, pi|
-      p.each_with_index do |ts, ti|
-        stripes_builder.new_time_slot pi, ts, ti
-      end
-    end
-    stripes_builder.finish
+    stripes_builder.detect_product_stripes @bedarf
     p stripes_builder
   end
 
