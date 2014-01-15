@@ -23,7 +23,7 @@ class Problem
   end
 
   def inspect
-    x = "Bedarf: (X-Achse: Index Timeslots, Y-Achse: Index Produkt) \n"
+    x = ""#Bedarf: (X-Achse: Index Timeslots, Y-Achse: Index Produkt) \n"
     #bedarf.each do |r|
     #  x << r.map { |p| p }.join(" ") << "\n"
     #end

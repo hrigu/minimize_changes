@@ -32,7 +32,7 @@ class ProblemReader
       produkte << get_bedarf_for_product(node.content)
     end
     uniq_produkte = produkte.flatten.uniq.sort
-    puts "Die verschiedenen Produkte: (Anzahl = #{uniq_produkte.size})"
+    #puts "Die verschiedenen Produkte: (Anzahl = #{uniq_produkte.size})"
     #p uniq_produkte
     #puts "Anzahl Timeslots: #{produkte.size}"
 
