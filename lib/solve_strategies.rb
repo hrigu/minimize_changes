@@ -31,7 +31,7 @@ class SolverSolveStrategy < SolveStrategy
 
   def mzn_file_erstellen
     out_info "mzn File erstellen..."
-    generator = MinizincGenerator.new(problem, self)
+    generator = MinizincGenerator.new(@problem, self)
     generator.create_mzn_file
     out_info "mzn File erstellt."
   end
