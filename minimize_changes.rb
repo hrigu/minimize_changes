@@ -19,7 +19,7 @@ problem_file = "level3.xml"
 problem = ProblemReader.new.read(problem_file)
 p problem
 
-solve_strategy = SolverSolveStrategy.new(employees: "2", problem: problem)  #"5..8"
+solve_strategy = SolverSolveStrategy.new(employees: "3", problem: problem)  #"5..8"
 
 solve_strategy.vorbereiten
 solve_strategy.mzn_file_erstellen
@@ -27,4 +27,5 @@ solve_strategy.erstelle_files
 solve_strategy.loese
 solve_strategy.loesung_zeigen
 
-out_info "FERTIG"
+out_info "FERTIG: "
+puts solve_strategy.info

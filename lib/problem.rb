@@ -2,11 +2,13 @@ require_relative "stripe"
 
 class Problem
   # Bedarf der Produkte pro Timeslot: [0][3] = Bedarf fuer Produkt 0 im Timeslot 3: boolean
+  attr_accessor :name
   attr_reader :bedarf
   attr_reader :anzahl_maschinen, :anzahl_produkte, :anzahl_timeslots
 
 
-  def initialize anzahl_maschinen, bedarf
+  def initialize anzahl_maschinen, bedarf, name = "unbekannt"
+    @name = name
     @anzahl_maschinen, @bedarf = anzahl_maschinen, bedarf
     @anzahl_produkte = @bedarf.length
     @anzahl_timeslots = @bedarf[0].length
@@ -48,7 +50,8 @@ class Problem
     #  x << r.map { |p| p }.join(" ") << "\n"
     #end
     #{bedarf.inspect}
-    x << "Anzahl Maschinen:  #{anzahl_maschinen}
+    x << "name:              #{name}
+Anzahl Maschinen:  #{anzahl_maschinen}
 Anzahl Produkte:   #{anzahl_produkte}
 Anzahl Timeslots:  #{anzahl_timeslots}"
     #"initiale Lösung: \n"

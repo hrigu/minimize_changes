@@ -13,7 +13,7 @@ class ProblemReader
     bedarf = read_bedarf(doc)
     anzahl_maschinen = read_anzahl_maschinen(doc)
 
-    Problem.new(anzahl_maschinen, bedarf)
+    Problem.new(anzahl_maschinen, bedarf, broblem_name)
   end
 
   private
