@@ -12,6 +12,8 @@ set of int: PRODUKTE = 1..anzahl_produkte;
 array[PRODUKTE, TIME_SLOTS] of bool: bedarf =
 [|<%= @problem.bedarf.map{|p| p.join(",")}.join("\n |") %>|];
 
+array[TIME_SLOTS] of int: anzahl_luecken_pro_timeslot = <%= @problem.anzahl_luecken_pro_timeslot %>;
+
 % plan
 array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte: plan;
 

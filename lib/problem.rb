@@ -1,7 +1,7 @@
 require_relative "stripe"
 
 class Problem
-  # Bedarf der Produkte pro Timeslot: [0][3] = Bedarf fuer Produkt 0 im Timeslot 3
+  # Bedarf der Produkte pro Timeslot: [0][3] = Bedarf fuer Produkt 0 im Timeslot 3: boolean
   attr_reader :bedarf
   attr_reader :anzahl_maschinen, :anzahl_produkte, :anzahl_timeslots
 
@@ -23,11 +23,23 @@ class Problem
     l = ""
     a.each_with_index do |maschine, mi|
       maschine.each_with_index do |value, ti|
-        l << "m#{mi+1}t#{ti+1} = #{value}; "
+        l << "m#{mi+1}t#{ti+1} = #{value};"
       end
       #l << "\n"
     end
     l
+  end
+
+  def anzahl_luecken_pro_timeslot
+    anzahl_timeslots.times.map do |ti|
+      sum_der_gesetzten_produkte = 0
+      #array.inject{|sum, x| sum + x ? 1 : 0}
+      @anzahl_produkte.times do |pi|
+        sum_der_gesetzten_produkte += @bedarf[pi][ti] ? 1 : 0
+      end
+      @anzahl_maschinen - sum_der_gesetzten_produkte
+    end
+
   end
 
   def inspect

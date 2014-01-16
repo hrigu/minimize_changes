@@ -1,15 +1,22 @@
-%%%%%%%%%%%
+%%%%%%%%%%%%%
 % CONSTRAINTS
-%%%%%%%%%%%
+%%%%%%%%%%%%%
 
 % Alle Produkte verarbeiten
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pro Produkt und Timeslot muss die Anzahl des Produktes auf allen Maschinen zusammengezaehlt den Bedarf ergeben
-constraint forall(p in PRODUKTE, t in TIME_SLOTS) (
+constraint forall(p in PRODUKTE, t in TIME_SLOTS where bedarf[p,t] == true) (
     %(plan[m,t] == p) == bedarf[p,t]
-    sum(m in MASCHINEN) (bool2int(plan[m,t] == p)) == bool2int(bedarf[p,t])
-
+    % sum(m in MASCHINEN) (bool2int(plan[m,t] == p)) == bool2int(bedarf[p,t])
+    exists(m in MASCHINEN) (plan[m,t] == p)
+);
+% Es muss in einem Timeslot aber immer noch anzahl_luecken_pro_timeslot vorhanden sind.
+constraint forall(t in TIME_SLOTS ) (
+    sum(m in MASCHINEN) (bool2int(plan[m,t] == 0)) == anzahl_luecken_pro_timeslot[t]
 );
 
+% Hilfstabelle plan_2 erstellen, um das Erkennen von Produktwechsel zu vereinfachen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % In "plan" gibt es Timeslots, in dem die Maschine nichts zu tun hat.
 % Die füllen mit dem nächstfolgenden Produkt, damit das Erkennen von Produktwechsel einfacher wird.
 constraint forall(m in MASCHINEN, t in TIME_SLOTS where t > 1) (
@@ -38,18 +45,21 @@ constraint forall(m in MASCHINEN) (
 
 
 
-% Anzahl Wechsel pro Maschine
+% Anzahl Wechsel finden (Tabelle 'wechsel')
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 constraint forall(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,anzahl_time_slots] == false); % nie ein Wechsel im letzten Time Step
 constraint forall(m in MASCHINEN, t in TIME_SLOTS where t < anzahl_time_slots) (
 wechsel[m,t] == not(plan_2[m,t] == plan_2[m,t+1])
 );
 
+% End Constraint pro Maschine
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % constraint end_wechsel == sum(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,t]);
 <% @problem.anzahl_maschinen.times do |i| %>
 constraint end_wechsel_m_<%=i+1 %> == sum(t in TIME_SLOTS) (bool2int(wechsel[<%= i+1 %>,t]));
 <% end %>
 
 
-%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
 % END CONSTRAINTS
-%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
