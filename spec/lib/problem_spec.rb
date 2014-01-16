@@ -36,4 +36,11 @@ describe 'Produkt' do
       expect(@problem.send(:generate_initiale_loesung)).to eq(expected)
     end
   end
+
+  describe "detect_product_stripes" do
+    it 'bla' do
+      @problem.detect_product_stripes
+      @problem.stripes.each {|s| p s}
+    end
+  end
 end

@@ -59,6 +59,11 @@ class Stripe
     "product: #{product}, size: #{size}, value: #{value}, start_index: #{start_index}, end_index: #{end_index}"
   end
 
+  def constraint
+    #'(plan[m,5] == 1) /\ (plan[m,6] == 1) /\ (plan[m,8] == 1) /\ (plan[m,8] == 1)'
+    (start_index..end_index).map { |index| "(plan[m,#{index+1}] == #{product+1})"}.join(' /\ ')
+  end
+
   def size
     (end_index+1) - start_index
   end

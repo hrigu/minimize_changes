@@ -50,9 +50,9 @@ class SolverSolveStrategy < SolveStrategy
     @mzn_file = "created.mzn"
     @smt_file = "created.smt"
     @template_dir = "files/templates/end_pro_maschine_boolean/"
-    @global_timeout = 5
-    @solver_timeout = "2..2"
-    @anzahl_runs = 10
+    @global_timeout = 20
+    @solver_timeout = "14..18"
+    @anzahl_runs = 1
 
     #@template_dir = "files/templates/global_end/"
   end
@@ -151,6 +151,11 @@ class SolverSolveStrategy < SolveStrategy
   def info
     x = "Problem:\n"
     x << @problem.inspect << "\n"
+    x << "Strategie: \n"
+    x << "Floating:          #{employees}\n"
+    x << "Global Timeout:    #{@global_timeout}\n"
+    x << "Solver Timeout:    #{@solver_timeout}\n"
+    x << ""
     x << "Runs:\n"
     x << @run_infos.inspect
     x

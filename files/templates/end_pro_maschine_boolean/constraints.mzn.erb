@@ -6,8 +6,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Pro Produkt und Timeslot muss die Anzahl des Produktes auf allen Maschinen zusammengezaehlt den Bedarf ergeben
 constraint forall(p in PRODUKTE, t in TIME_SLOTS where bedarf[p,t] == true) (
-    %(plan[m,t] == p) == bedarf[p,t]
-    % sum(m in MASCHINEN) (bool2int(plan[m,t] == p)) == bool2int(bedarf[p,t])
     exists(m in MASCHINEN) (plan[m,t] == p)
 );
 % Es muss in einem Timeslot aber immer noch anzahl_luecken_pro_timeslot vorhanden sind.
@@ -43,6 +41,12 @@ constraint forall(m in MASCHINEN) (
 
 );
 
+%Streifen müssen als ganzes auf irgend einer Maschine liegen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  Streifen {produkt: 1, start_index: 5, end_index: 8}
+<% @problem.stripes.each do |stripe| %>
+constraint exists(m in MASCHINEN) (<%= stripe.constraint %>);
+<% end %>
 
 
 % Anzahl Wechsel finden (Tabelle 'wechsel')

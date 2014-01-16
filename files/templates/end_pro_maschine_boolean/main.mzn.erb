@@ -31,7 +31,9 @@ array[MASCHINEN, TIME_SLOTS] of var bool: wechsel;
 %hook_for_show_solution
 
 % fuer solver
+<% if false %>
 % INITIALLOESUNG	<%= @problem.initial_loesung %>
+<% end %>
 solve satisfy;
 % end fuer solver
 

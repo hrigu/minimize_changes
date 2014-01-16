@@ -5,6 +5,7 @@ class Problem
   attr_accessor :name
   attr_reader :bedarf
   attr_reader :anzahl_maschinen, :anzahl_produkte, :anzahl_timeslots
+  attr_reader :stripes
 
 
   def initialize anzahl_maschinen, bedarf, name = "unbekannt"
@@ -17,9 +18,11 @@ class Problem
   def detect_product_stripes
     stripes_builder = StripesBuilder.new
     stripes_builder.detect_product_stripes @bedarf
-    p stripes_builder
+    @stripes = stripes_builder.stripes
+    #p stripes_builder
   end
 
+  #TODO Die Stripes dürfen nicht verschnitten werden
   def initial_loesung
     a = generate_initiale_loesung
     l = ""
