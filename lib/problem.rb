@@ -16,9 +16,9 @@ class Problem
   end
 
   def detect_product_stripes
-    stripes_builder = StripesBuilder.new
-    stripes_builder.detect_product_stripes @bedarf
-    @stripes = stripes_builder.stripes
+    @stripes_builder = StripesBuilder.new
+    @stripes_builder.detect_product_stripes @bedarf
+    @stripes = @stripes_builder.stripes
     #p stripes_builder
   end
 
@@ -76,7 +76,7 @@ Anzahl Timeslots:  #{anzahl_timeslots}"
   end
 
   def constraint_streifen_nicht_verteilt
-    stripes.map{|s|"bool2int(not exists(m in MASCHINEN) (#{s.constraint}))"}.join("\n\t+ ")+";"
+    stripes.map { |s| "bool2int(not exists(m in MASCHINEN) (#{s.constraint}))" }.join("\n\t+ ")+";"
   end
 
   private
@@ -98,5 +98,61 @@ Anzahl Timeslots:  #{anzahl_timeslots}"
     end
     a
   end
+
+  def generate_initiale_loesung_v2
+    @stripes_builder.stripes.sort!.reverse!
+    l = Loesung.new(@anzahl_maschinen, anzahl_timeslots)
+    begin
+      @stripes_builder.stripes.each do |s|
+        puts "stripe: #{s.product+1} #{s.size}"
+        l.insert s
+      end
+    rescue => e
+      puts e
+      p l
+      raise ""
+    end
+
+    l
+  end
+
+  class Loesung
+    attr_reader :a
+
+    def initialize anz_maschinen, anz_timeslots
+      @a = Array.new(anz_maschinen) { Array.new(anz_timeslots, 0) }
+    end
+
+    def insert stripe
+      possible = true
+      @a.each do |m|
+        possible = insert_possible(m, stripe)
+        break if possible
+      end
+      raise "Konnte den Streifen #{stripe.inspect} nicht platzieren" unless possible
+    end
+
+    def insert_possible maschine, stripe
+      free = true
+      (stripe.start_index..stripe.end_index).each do |c_m_i|
+        unless maschine[c_m_i] == 0
+          free = false
+          break
+        end
+      end
+      if free
+        (stripe.start_index..stripe.end_index).each { |c_m_i| maschine[c_m_i] = stripe.product+1 }
+      end
+      free
+
+    end
+
+    def inspect
+
+      @a.map { |m| m.inspect }.join("\n")
+    end
+
+  end
+
 
 end
