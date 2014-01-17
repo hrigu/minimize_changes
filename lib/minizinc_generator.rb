@@ -6,7 +6,7 @@ class MinizincGenerator
 
   def render path
     content = File.read(File.expand_path(path))
-    t = ERB.new(content)
+    t = ERB.new(content, nil, "<>")
     t.result(binding)
   end
 

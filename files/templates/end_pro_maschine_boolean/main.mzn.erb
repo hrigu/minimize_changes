@@ -25,17 +25,16 @@ array[MASCHINEN, TIME_SLOTS] of var bool: wechsel;
 
 
 <%= render("#{@solve_strategy.template_dir}mt_variablen.mzn.erb") %>
+
 <%= render("#{@solve_strategy.template_dir}constraints.mzn.erb") %>
 
 
 %hook_for_show_solution
 
-% fuer solver
 <% if false %>
 % INITIALLOESUNG	<%= @problem.initial_loesung %>
 <% end %>
 solve satisfy;
-% end fuer solver
 
 
 <%= render("#{@solve_strategy.template_dir}output.mzn.erb") %>
