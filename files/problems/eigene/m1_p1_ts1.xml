@@ -1,0 +1,14 @@
+<optimization_instance>
+<control>
+<objective>1</objective>
+<product_order>fixed</product_order>
+<algorithm>ktns</algorithm>
+</control>
+<machines>
+<number>1</number>
+</machines>
+<!-- this instance does not contain multiset products -->
+<production>
+<product>0</product>
+</production>
+</optimization_instance>

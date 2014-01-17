@@ -18,19 +18,9 @@ constraint forall(t in TIME_SLOTS ) (
 % In "plan" gibt es Timeslots, in dem die Maschine nichts zu tun hat.
 % Die füllen mit dem nächstfolgenden Produkt, damit das Erkennen von Produktwechsel einfacher wird.
 constraint forall(m in MASCHINEN, t in TIME_SLOTS where t > 1) (
-
-% etwas schneller
-((plan[m,t] == 0) /\ (plan_2[m,t] == plan_2[m,t-1]))
-\/
-(not(plan[m,t] == 0) /\ (plan_2[m,t] == plan[m,t]))
-
-%	% etwas langsamer:
-%	let  { var bool: a = (plan[m,t] == 0)}
-%	in
-%	(a /\ (plan_2[m,t] == plan_2[m,t-1]))
-%	\/
-%	(not(a) /\ (plan_2[m,t] == plan[m,t]))
-
+    ((plan[m,t] == 0) /\ (plan_2[m,t] == plan_2[m,t-1]))
+    \/
+    (not(plan[m,t] == 0) /\ (plan_2[m,t] == plan[m,t]))
 );
 
 % Fuer t = 1 (erster Timeslot)
@@ -41,9 +31,8 @@ constraint forall(m in MASCHINEN) (
 
 );
 
-%Streifen müssen als ganzes auf irgend einer Maschine liegen
+%Streifen müssen als ganzes auf irgend einer Maschine liegen. Ein Streifen ist Beispielsweise {produkt: 1, start_index: 5, end_index: 8}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  Streifen {produkt: 1, start_index: 5, end_index: 8}
 <% @problem.stripes.each do |stripe| %>
 constraint exists(m in MASCHINEN) (<%= stripe.constraint %>);
 <% end %>

@@ -18,6 +18,16 @@ constraint end_anzahl_streifen_nicht_verteilt ==
     + ...;
 
 
+
+%%% Alternative Implementation zur Hilfstabelle um besser die Wechsel finden.
+%	% etwas langsamer:
+%	let  { var bool: a = (plan[m,t] == 0)}
+%	in
+%	(a /\ (plan_2[m,t] == plan_2[m,t-1]))
+%	\/
+%	(not(a) /\ (plan_2[m,t] == plan[m,t]))
+
+
 %%% Anzahl Wechsel global. (Version Xa)
 constraint end_wechsel ==
 	% Übergänge 1->2, 2->1 und 2->2 betrachten. Nur erste zwei Arten der Übergänge zählen

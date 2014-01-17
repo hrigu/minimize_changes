@@ -43,16 +43,16 @@ end
 class SolverSolveStrategy < SolveStrategy
   attr_reader :employees, :template_dir
 
-  def initialize(employees: 4, problem: nil)
+  def initialize(employees: 4, global_timeout: 2, solver_timeout: 2, anzahl_runs: 1, problem: nil)
     super SOLVER
     @employees = employees
     @problem = problem
     @mzn_file = "created.mzn"
     @smt_file = "created.smt"
     @template_dir = "files/templates/end_pro_maschine_boolean/"
-    @global_timeout = 20
-    @solver_timeout = "14..18"
-    @anzahl_runs = 1
+    @global_timeout = global_timeout
+    @solver_timeout = solver_timeout
+    @anzahl_runs = anzahl_runs
 
     #@template_dir = "files/templates/global_end/"
   end
@@ -68,8 +68,9 @@ class SolverSolveStrategy < SolveStrategy
   # generiert flatzinc, smt, erste Lösung: alles um schlussendlich das File zu lösen
   #
   def erstelle_files()
-    #system("cp #{@template_dir}grenzen_modifiziert.txt files/created/grenzen_modifiziert.txt")
-    system("cd files/created && ~/dienstplan/trunk/solver/solver_master/processing.sh #{@mzn_file}")
+    processing = "~/dienstplan/trunk/solver/solver_master/processing.sh #{@mzn_file}"
+    puts processing
+    system("cd files/created && #{processing}")
   end
 
   def loese()
