@@ -40,7 +40,15 @@ describe 'Produkt' do
   describe "detect_product_stripes" do
     it 'bla' do
       @problem.detect_product_stripes
-      @problem.stripes.each {|s| p s}
+      @problem.stripes.each { |s| p s }
+    end
+  end
+
+  describe "gruen_orange_rot" do
+    it "erstellt einen String in 10er Abständen. letzter Eintrag ist anzahl_timeslots" do
+      anzahl_timeslots = 17
+      @problem = Problem.new 1, [Array.new(anzahl_timeslots)]
+      expect(@problem.gruen_orange_rot).to eq ("0\t0\t10\t10\t17\t17")
     end
   end
 end

@@ -1,0 +1,53 @@
+Problem:
+name:              eigene/big_20_46.xml
+Anzahl Maschinen:  20
+Anzahl Produkte:   21
+Anzahl Timeslots:  46
+Strategie: 
+Floating:          4..8
+Global Timeout:    5
+Solver Timeout:    2..2
+Runs:
+Anzahl Verstösse    Dauer     Anzahl globale Timeouts     Anzahl unsats
+================    =====     =======================     =============
+104		    246.27	20			0
+102		    235.69	17			0
+99		    236.36	18			0
+85		    262.23	16			0
+109		    218.95	19			0
+104		    232.6	19			0
+114		    224.0	20			0
+89		    273.59	18			0
+102		    235.62	18			0
+115		    229.29	20			0
+
+
+Problem:
+name:              eigene/big_20_46.xml
+Anzahl Maschinen:  20
+Anzahl Produkte:   21
+Anzahl Timeslots:  46
+Strategie: 
+Floating:          10
+Global Timeout:    20
+Solver Timeout:    14..18
+Runs:
+Anzahl Verstösse    Dauer     Anzahl globale Timeouts     Anzahl unsats
+================    =====     =======================     =============
+156		            531.6	    20			              0
+
+
+Problem:
+name:              eigene/big_20_46.xml
+Anzahl Maschinen:  20
+Anzahl Produkte:   21
+Anzahl Timeslots:  46
+Strategie: 
+Floating:          8
+Global Timeout:    20
+Solver Timeout:    14..18
+Runs:
+Anzahl Verstösse    Dauer     Anzahl globale Timeouts     Anzahl unsats
+================    =====     =======================     =============
+1		    82.68	1			0
+

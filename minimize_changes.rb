@@ -8,8 +8,8 @@ require_relative 'lib/solve_strategies'
 
 include Helpers
 
-problem_file = "eigene/big.xml"  #"level1.xml"  "brk_20120302_1_flow_45_group_10.xml"
-#problem_file = "level3.xml"
+#problem_file = "eigene/big.xml"  #"level1.xml"  "brk_20120302_1_flow_45_group_10.xml"
+problem_file = "level2.xml"
 #problem_file = "pst_2012017_all_products_ktns.xml"
 #problem_file = "eigene/big_20_46.xml"
 #problem_file = "eigene/big_10_10.xml"
