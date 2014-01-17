@@ -75,6 +75,10 @@ Anzahl Timeslots:  #{anzahl_timeslots}"
     x
   end
 
+  def constraint_streifen_nicht_verteilt
+    stripes.map{|s|"bool2int(not exists(m in MASCHINEN) (#{s.constraint}))"}.join("\n\t+ ")+";"
+  end
+
   private
   def generate_initiale_loesung
     # 2-D Array der Grösse anzahl_maschinen * anzahl_timeslots erstellen und mit 0 initialisieren

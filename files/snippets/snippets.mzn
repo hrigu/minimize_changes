@@ -9,7 +9,7 @@ constraint exactly(1,[
 ], 1)
 
 
-%%% Anzahl Streifen welche nicht unversehrt auf einer Maschine auftauchen minimieren
+%%% Anzahl Streifen welche nicht unversehrt auf einer Maschine auftauchen, minimieren
 %%%
 var 0...anzahl_streifen: end_anzahl_streifen_nicht_verteilt;
 constraint end_anzahl_streifen_nicht_verteilt ==

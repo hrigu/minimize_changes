@@ -33,10 +33,9 @@ constraint forall(m in MASCHINEN) (
 
 %Streifen müssen als ganzes auf irgend einer Maschine liegen. Ein Streifen ist Beispielsweise {produkt: 1, start_index: 5, end_index: 8}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-<% @problem.stripes.each do |stripe| %>
-constraint exists(m in MASCHINEN) (<%= stripe.constraint %>);
-<% end %>
-
+%%% Anzahl Streifen welche nicht unversehrt auf einer Maschine auftauchen, minimieren
+%%%
+constraint end_anzahl_streifen_nicht_verteilt ==  <%= @problem.constraint_streifen_nicht_verteilt %>
 
 % Anzahl Wechsel finden (Tabelle 'wechsel')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

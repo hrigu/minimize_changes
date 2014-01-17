@@ -2,3 +2,7 @@
 % GRUENORANGEROT	end_wechsel_m_<%= i+1%>	<=	<%= @problem.gruen_orange_rot %>
 var 0..anzahl_time_slots: end_wechsel_m_<%=i+1 %>;
 <% end %>
+
+% GRUENORANGEROT	end_anzahl_streifen_nicht_verteilt	<=	0	0	<%= @problem.anzahl_timeslots %>	<%=@problem.stripes.size%>
+var 0..anzahl_streifen: end_anzahl_streifen_nicht_verteilt;
+

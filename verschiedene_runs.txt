@@ -51,3 +51,18 @@ Anzahl Verstösse    Dauer     Anzahl globale Timeouts     Anzahl unsats
 ================    =====     =======================     =============
 1		    82.68	1			0
 
+
+
+Problem:           OHNE Startloesung, mit end_variable end_nicht_gesetzte_streifen
+name:              eigene/big_20_46.xml
+Anzahl Maschinen:  20
+Anzahl Produkte:   21
+Anzahl Timeslots:  46
+Strategie:
+Floating:          2..8
+Global Timeout:    20
+Solver Timeout:    14..18
+Runs:
+Anzahl Verstösse    Dauer     Anzahl globale Timeouts     Anzahl unsats
+================    =====     =======================     =============
+1		    215.31	2			0

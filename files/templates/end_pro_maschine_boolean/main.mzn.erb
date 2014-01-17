@@ -9,6 +9,8 @@ set of int: MASCHINEN = 1..anzahl_maschinen;
 int: anzahl_produkte = <%= @problem.anzahl_produkte %>;
 set of int: PRODUKTE = 1..anzahl_produkte;
 
+int: anzahl_streifen = <%= @problem.stripes.size %>;
+
 array[PRODUKTE, TIME_SLOTS] of bool: bedarf =
 [|<%= @problem.bedarf.map{|p| p.join(",")}.join("\n |") %>|];
 
@@ -31,9 +33,7 @@ array[MASCHINEN, TIME_SLOTS] of var bool: wechsel;
 
 %hook_for_show_solution
 
-<% if false %>
 % INITIALLOESUNG	<%= @problem.initial_loesung %>
-<% end %>
 solve satisfy;
 
 
