@@ -26,7 +26,8 @@ puts "Anzahl Einzelzellen: #{problem.stripes_builder.anzahl_einzelzellen}"
 # solve_strategy = SolverSolveStrategy.new(employees: "4", global_timeout: 20, solver_timeout: "14..18", anzahl_runs: 1, problem: problem)  #"5..8"
 #solve_strategy = AnzahlWechselProMaschine.new(employees: "4", global_timeout: 20, solver_timeout: "14..18", anzahl_runs: 1, problem: problem)  #"5..8"
 #solve_strategy = XaGlobalAnzahlWechsel.new(employees: "4", global_timeout: 20, solver_timeout: "14..18", anzahl_runs: 1, problem: problem)  #"5..8"
-solve_strategy = XaAnzahlWechselProMaschine.new(employees: "4", global_timeout: 20, solver_timeout: "14..18", anzahl_runs: 1, problem: problem)  #"5..8"
+#solve_strategy = XaAnzahlWechselProMaschine.new(employees: "4", global_timeout: 20, solver_timeout: "14..18", anzahl_runs: 1, problem: problem)  #"5..8"
+solve_strategy = StreifenVerteilen.new(employees: problem.anzahl_maschinen, global_timeout: 20, solver_timeout: "14..18", anzahl_runs: 1, problem: problem)  #"5..8"
 
 solve_strategy.vorbereiten
 solve_strategy.mzn_file_erstellen

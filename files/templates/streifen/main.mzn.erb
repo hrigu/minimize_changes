@@ -20,10 +20,6 @@ array[TIME_SLOTS] of int: anzahl_luecken_pro_timeslot = <%= @problem.anzahl_luec
 array[MASCHINEN, TIME_SLOTS] of var 0..anzahl_produkte: plan;
 
 
-% Wechsel
-array[MASCHINEN, TIME_SLOTS] of var bool: wechsel;
-
-
 <%= render("#{@solve_strategy.template_dir}mt_variablen.mzn.erb") %>
 
 <%= render("#{@solve_strategy.template_dir}constraints.mzn.erb") %>
@@ -31,7 +27,5 @@ array[MASCHINEN, TIME_SLOTS] of var bool: wechsel;
 
 %hook_for_show_solution
 
-% INITIALLOESUNG	<%= @problem.initial_loesung %>
 solve satisfy;
-
 <%= render("#{@solve_strategy.template_dir}output.mzn.erb") %>

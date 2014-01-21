@@ -205,3 +205,23 @@ class XaAnzahlWechselProMaschine < SolverSolveStrategy
     "constraints_anz_wechsel_pro_maschine_v_xa.mzn.erb"
   end
 end
+
+class StreifenVerteilen < SolverSolveStrategy
+
+
+  def initialize(employees: 4, global_timeout: 2, solver_timeout: 2, anzahl_runs: 1, problem: nil)
+    super
+    @template_dir = "files/templates/streifen/"
+  end
+
+  def end_variablen_pro_maschine
+    false
+  end
+
+  def end_variablen_global
+    false
+  end
+
+
+end
+

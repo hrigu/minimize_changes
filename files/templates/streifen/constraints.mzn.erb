@@ -21,10 +21,6 @@ constraint forall(t in TIME_SLOTS ) (
 %%%
 constraint end_anzahl_streifen_nicht_verteilt ==  <%= @problem.constraint_streifen_nicht_verteilt %>
 
-<% if false %>
-<%= render("#{@solve_strategy.template_dir}#{@solve_strategy.constraints_wechsel}") %>
-<% end %>
-
 %%%%%%%%%%%%%%%%%
 % END CONSTRAINTS
 %%%%%%%%%%%%%%%%%

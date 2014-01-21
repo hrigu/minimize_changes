@@ -1,0 +1,30 @@
+
+output
+["\n"] ++
+
+["\nTimestep" ++ "\t"] ++
+[	if(t < 10) then " " else "" endif ++
+show(t) ++
+if(t < anzahl_time_slots) then " " else "\n" endif | t in TIME_SLOTS] ++
+
+["-------------------------"] ++ ["--"| t in TIME_SLOTS] ++ ["-------------------------"] ++ ["-"| t in TIME_SLOTS] ++
+["\n" ++ "Plan" ++ "\t\t "] ++
+
+[show(plan[m,t]) ++
+if (t == anzahl_time_slots)
+then ("\n\t\t ")
+else
+%if(plan[m,t] < 10) then("  ") else ("  ") endif
+"  "
+endif | m in MASCHINEN, t in TIME_SLOTS]
+
+%++
+
+
+%["---"| t in TIME_SLOTS] ++
+%["\n" ++ "Wechsel" ++ "\t\t "] ++
+%[show(wechsel[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS]
+
+
+
+

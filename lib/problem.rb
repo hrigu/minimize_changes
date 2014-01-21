@@ -67,7 +67,9 @@ class Problem
     x << "name:              #{name}
 Anzahl Maschinen:  #{anzahl_maschinen}
 Anzahl Produkte:   #{anzahl_produkte}
-Anzahl Timeslots:  #{anzahl_timeslots}"
+Anzahl Timeslots:  #{anzahl_timeslots}
+Anzahl Streifen:   #{stripes.size}"
+
     #"initiale Lösung: \n"
     #    generate_initiale_loesung.each do |r|
     #      x << r.map { |p| p }.join(" ") << "\n"

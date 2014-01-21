@@ -1,0 +1,18 @@
+% Wechsel als als mt-Variablen
+% X-Achse: Maschinen
+% Y-Achse: Timeslots
+<% @problem.anzahl_timeslots.times do |ti| %>
+<%= @problem.anzahl_maschinen.times.map{|mi| "var 0..anzahl_produkte: m#{mi+1}t#{ti+1};"}.join("\t")%>
+<% end %>
+
+% --------------------------
+% Constraints Datenstrukur
+% --------------------------
+
+% Verknuepfung  mt-Variablen mit Plan
+% --------------------------------------------------------
+% X-Achse: Maschinen
+% Y-Achse: Timeslots
+<% @problem.anzahl_timeslots.times do |ti| %>
+<%= @problem.anzahl_maschinen.times.map{|mi| "constraint m#{mi+1}t#{ti+1} == plan[ #{mi+1},#{ti+1} ];"}.join("\t")%>
+<% end %>
