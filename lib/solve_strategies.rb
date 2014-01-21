@@ -105,10 +105,10 @@ class SolverSolveStrategy < SolveStrategy
             anzahl_verstoesse += a[1].to_i
           end
         else
-        if line =~ /^end_wechsel=/
-          anzahl_verstoesse = (line[/\d+/]).to_i
+          if line =~ /^end_wechsel=/
+            anzahl_verstoesse = (line[/\d+/]).to_i
+          end
         end
-      end
       end
     end
     anzahl_verstoesse
@@ -191,5 +191,17 @@ class XaGlobalAnzahlWechsel < SolverSolveStrategy
 
   def constraints_wechsel
     "constraints_anz_wechsel_global_v_xa.mzn.erb"
+  end
+
+end
+
+class XaAnzahlWechselProMaschine < SolverSolveStrategy
+
+  def end_variablen_pro_maschine
+    true
+  end
+
+  def constraints_wechsel
+    "constraints_anz_wechsel_pro_maschine_v_xa.mzn.erb"
   end
 end

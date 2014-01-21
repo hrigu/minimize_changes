@@ -1,0 +1,26 @@
+%%% Anzahl Wechsel global. (Version Xa)
+
+<% @problem.anzahl_maschinen.times do |i| %>
+constraint end_wechsel_m_<%=i+1 %> == 	% Übergänge 1->2, 2->1 und 2->2 betrachten. Nur erste zwei Arten der Übergänge zählen
+	sum(t in 1..anzahl_time_slots-1) (
+		bool2int(
+			plan[<%=i+1 %>,t] != 0
+			/\ plan[<%=i+1 %>,t+1] != 0
+			/\ plan[<%=i+1 %>,t] != plan[<%=i+1 %>,t+1])
+	)
+	+
+	% Übergänge x->0 betrachten, wobei x!=0
+	sum(
+		t1 in 1..anzahl_time_slots-2,
+		t2 in t1+1..anzahl_time_slots-1
+	) (
+		bool2int(
+			plan[<%=i+1 %>,t1] != 0
+			/\ plan[<%=i+1 %>,t1+1] == 0
+			/\ plan[<%=i+1 %>,t2] == 0
+			/\ plan[<%=i+1 %>,t2+1] != 0
+			/\ plan[<%=i+1 %>,t1] != plan[<%=i+1 %>,t2+1]
+			/\ forall(t3 in t1+1..t2) (plan[<%=i+1 %>,t3] == 0)
+		)
+	);
+<% end %>
