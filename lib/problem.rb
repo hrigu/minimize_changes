@@ -5,7 +5,7 @@ class Problem
   attr_accessor :name
   attr_reader :bedarf
   attr_reader :anzahl_maschinen, :anzahl_produkte, :anzahl_timeslots
-  attr_reader :stripes
+  attr_reader :stripes_builder, :stripes
 
 
   def initialize anzahl_maschinen, bedarf, name = "unbekannt"

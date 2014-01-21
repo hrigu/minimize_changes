@@ -24,10 +24,13 @@ if(t < anzahl_time_slots) then " " else "\n" endif | t in TIME_SLOTS] ++
 
 ["---"| t in TIME_SLOTS] ++
 ["\n" ++ "Wechsel" ++ "\t\t "] ++
-[show(wechsel[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS] ++
+[show(wechsel[m,t]) ++ if (t == anzahl_time_slots) then ("\n\t\t ") else ("  ") endif | m in MASCHINEN, t in TIME_SLOTS]
+<% if @solve_strategy.end_variablen_pro_maschine %>
+     ++
+    <% @problem.anzahl_maschinen.times do |i| %>
+    ["\n" ++ "Wechsel total Maschine m_<%=i+1 %> == " ++ show(end_wechsel_m_<%=i+1 %>) ++ "\n"] <%= if i < @problem.anzahl_maschinen - 1 then "++" end %>
+    <% end %>
 
-<% @problem.anzahl_maschinen.times do |i| %>
-["\n" ++ "Wechsel total Maschine m_<%=i+1 %> == " ++ show(end_wechsel_m_<%=i+1 %>) ++ "\n"] <%= if i < @problem.anzahl_maschinen - 1 then "++" end %>
 <% end %>
 
 

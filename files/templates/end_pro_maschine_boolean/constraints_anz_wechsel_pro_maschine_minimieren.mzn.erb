@@ -1,0 +1,32 @@
+
+% Hilfstabelle plan_2 erstellen, um das Erkennen von Produktwechsel zu vereinfachen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% In "plan" gibt es Timeslots, in dem die Maschine nichts zu tun hat.
+% Die füllen mit dem nächstfolgenden Produkt, damit das Erkennen von Produktwechsel einfacher wird.
+constraint forall(m in MASCHINEN, t in TIME_SLOTS where t > 1) (
+    ((plan[m,t] == 0) /\ (plan_2[m,t] == plan_2[m,t-1]))
+    \/
+    (not(plan[m,t] == 0) /\ (plan_2[m,t] == plan[m,t]))
+);
+
+% Fuer t = 1 (erster Timeslot)
+constraint forall(m in MASCHINEN) (
+((plan[m,1] == 0) /\ (plan_2[m,1] == plan_2[m,2]))
+\/
+(not(plan[m,1] == 0) /\ (plan_2[m,1] == plan[m,1]))
+
+);
+
+
+% Anzahl Wechsel finden (Tabelle 'wechsel')
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+constraint forall(m in MASCHINEN, t in TIME_SLOTS) (wechsel[m,anzahl_time_slots] == false); % nie ein Wechsel im letzten Time Step
+constraint forall(m in MASCHINEN, t in TIME_SLOTS where t < anzahl_time_slots) (
+wechsel[m,t] == not(plan_2[m,t] == plan_2[m,t+1])
+);
+
+% End Constraint pro Maschine
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+<% @problem.anzahl_maschinen.times do |i| %>
+constraint end_wechsel_m_<%=i+1 %> == sum(t in TIME_SLOTS) (bool2int(wechsel[<%= i+1 %>,t]));
+<% end %>

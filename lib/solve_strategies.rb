@@ -93,14 +93,22 @@ class SolverSolveStrategy < SolveStrategy
   end
 
   def loesung_analysieren
+
     anzahl_verstoesse = 0
     File.open("files/created/beste_loesung.txt", "r") do |infile|
       while (line = infile.gets)
-        if line =~ /^end_wechsel_/
-          line.slice!("end_wechsel_")
-          a = line.split("=")
-          anzahl_verstoesse += a[1].to_i
+
+        if end_variablen_pro_maschine
+          if line =~ /^end_wechsel_/
+            line.slice!("end_wechsel_")
+            a = line.split("=")
+            anzahl_verstoesse += a[1].to_i
+          end
+        else
+        if line =~ /^end_wechsel=/
+          anzahl_verstoesse = (line[/\d+/]).to_i
         end
+      end
       end
     end
     anzahl_verstoesse
@@ -162,4 +170,26 @@ class SolverSolveStrategy < SolveStrategy
     x
   end
 
+end
+
+class AnzahlWechselProMaschine < SolverSolveStrategy
+
+  def end_variablen_pro_maschine
+    true
+  end
+
+  def constraints_wechsel
+    "constraints_anz_wechsel_pro_maschine_minimieren.mzn.erb"
+  end
+end
+
+class XaGlobalAnzahlWechsel < SolverSolveStrategy
+
+  def end_variablen_pro_maschine
+    false
+  end
+
+  def constraints_wechsel
+    "constraints_anz_wechsel_global_v_xa.mzn.erb"
+  end
 end

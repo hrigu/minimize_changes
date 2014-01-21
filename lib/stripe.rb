@@ -1,9 +1,10 @@
 class StripesBuilder
-  attr_reader :stripes, :current_stripe
+  attr_reader :stripes, :current_stripe, :anzahl_einzelzellen
 
   def initialize
     @stripes = []
     @current_stripe = nil
+    @anzahl_einzelzellen = 0
   end
 
   def detect_product_stripes bedarf
@@ -16,6 +17,7 @@ class StripesBuilder
   end
 
   def new_time_slot product, value, index
+    #Beginn eines neuen Produktes
     if index == 0
       handle_value_change product, value, index
     else
@@ -32,8 +34,12 @@ class StripesBuilder
   end
 
   def save_stripe_if_good_enough
-    if current_stripe && current_stripe.value && current_stripe.size > 1
+    if current_stripe && current_stripe.value
+      if current_stripe.size > 1
       stripes << current_stripe
+      else #Einzelne Zelle
+        @anzahl_einzelzellen += 1
+      end
     end
   end
 
