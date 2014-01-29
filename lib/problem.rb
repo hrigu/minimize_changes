@@ -35,6 +35,18 @@ class Problem
     l
   end
 
+  def gruen_orange_rot
+    steps = []
+    current_step = 0
+    while current_step < @anzahl_timeslots
+      steps << "#{current_step}\t#{current_step}"
+      current_step += 10
+    end
+    steps << "#{@anzahl_timeslots}\t#{@anzahl_timeslots}"
+    steps.join("\t")
+  end
+
+
   def anzahl_luecken_pro_timeslot
     anzahl_timeslots.times.map do |ti|
       sum_der_gesetzten_produkte = 0

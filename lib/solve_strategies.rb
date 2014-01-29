@@ -129,23 +129,29 @@ class SolverSolveStrategy < SolveStrategy
         solution = line
       end
     end
+
+    puts solution
     out_info "Loesung schreiben "
 
-    tempfile = File.open("files/created/#{@mzn_file}.tmp", "w")
-    File.open("files/created/#{@mzn_file}", "r") do |infile|
-      while (line = infile.gets)
-        tempfile << line
-        if line =~ /^%hook_for_show_solution/
-          tempfile.puts "%Die Lösung\n"
-          tempfile.puts solution
-          tempfile.puts "\n"
-        end
-      end
+    solution = Solution.new(solution)
+    solution.parse
+    solution.print_solution
 
-    end
-    tempfile.close
-    FileUtils.mv("files/created/#{@mzn_file}.tmp", "files/created/#{@mzn_file}")
-    system("cd files/created && minizinc #{@mzn_file}")
+    #tempfile = File.open("files/created/#{@mzn_file}.tmp", "w")
+    #File.open("files/created/#{@mzn_file}", "r") do |infile|
+    #  while (line = infile.gets)
+    #    tempfile << line
+    #    if line =~ /^%hook_for_show_solution/
+    #      tempfile.puts "%Die Lösung\n"
+    #      tempfile.puts solution
+    #      tempfile.puts "\n"
+    #    end
+    #  end
+    #
+    #end
+    #tempfile.close
+    #FileUtils.mv("files/created/#{@mzn_file}.tmp", "files/created/#{@mzn_file}")
+    #system("cd files/created && minizinc #{@mzn_file}")
   end
 
   def info

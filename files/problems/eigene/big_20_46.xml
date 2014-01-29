@@ -5,7 +5,7 @@
 <algorithm>ktns</algorithm>
 </control>
 <machines>
-<number>20</number>
+<number>14</number>
 </machines>
 <!-- this instance does not contain multiset products -->
 <production>

@@ -32,6 +32,7 @@ array[MASCHINEN, TIME_SLOTS] of var bool: wechsel;
 
 % fuer solver
 <% if false %>
+% INITIALLOESUNG nicht möglich, da sonst der Constraints mit den Streifen fehl schlägt.
 % INITIALLOESUNG	<%= @problem.initial_loesung %>
 <% end %>
 solve satisfy;
